@@ -33,7 +33,7 @@ One of the ways to achieve the above is by utilizing [GCP EventArc](https://clou
 
 ## Sample Implementation
 
-Follow the below steps to capture Apigee Developer create event via EventArc and post it to GCP Workflow. In this example the Workflow posts the audit log payload to an HTTP endpoint. Follow the steps within your GCP Cloudshell.
+Follow the below steps to capture an Apigee Developer create event via EventArc and post it to GCP Workflow. In this example the Workflow posts the audit log payload to an HTTP endpoint. Follow the steps within your GCP Cloudshell.
 
 1. Initialize variables
     ```bash
