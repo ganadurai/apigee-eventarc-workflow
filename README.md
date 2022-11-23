@@ -1,15 +1,17 @@
-# Tracking and Processing Apigee Management Events 
+# Apigee Event Processing via GCP Eventarc and Workflows
 
-Apigee management services write audit logs to help track events/changes that occur on the management plane. Few to mention:
+## Tracking and Processing Apigee Management Events 
 
-Actions of API Proxies
-Actions of API Products
+Actions on Apigee management plane get recorded via audit logs to track events/changes that occur. Few to mention:
+
+Actions of API Proxies (Create, Update, Deploy, etc)
+Actions of API Products (Create, Update, Deploy, etc)
 Actions on Developer Apps
 and more.
 
 For information about Apigee audit logs, see the details [here](https://cloud.google.com/apigee/docs/api-platform/debug/audit-logging#overview). 
 
-Below sample query in Cloud Logging can fetch logs for Apigee management events in your org. (adjust the query based on your needs):
+To view a sample of these events in Cloud Logging for your GCP-Project / Apigee-Org execute the below (adjust the query based on your needs):
 
 ```bash
 protoPayload.methodName=~"google.cloud.apigee.v1.Deployment*"
@@ -25,13 +27,13 @@ NOT protoPayload.methodName="google.cloud.apigee.v1.EnvironmentService.Unsubscri
 NOT protoPayload.methodName="google.cloud.apigee.v1.DeploymentService.GenerateDeployChangeReport"
 ```
 
-There is always a need to better capture the above events, process the events by posting it to a Cloud Function, Pub/Sub, Cloud Run or Post the event information to an external http endpoint.
+There is always a need to better capture the above events and process the events by posting it to a Cloud Function, Pub/Sub, Cloud Run or o an external http endpoint.
 
-One of the ways to achieve the above is by utilizing [GCP EventArc](https://cloud.google.com/eventarc/docs/overview). An Eventarc trigger enables to capture specific events from cloudlogging audit logs and act on specific events.  
+One of the ways to achieve the above is by utilizing [GCP EventArc](https://cloud.google.com/eventarc/docs/overview). An Eventarc trigger enables to capture specific events from cloudlogging audit logs and act on it.  
 
 ## Sample Implementation
 
-Follow the below steps to capture Developer create event via EventArc and post it to GCP Workflow. In this example the Workflow posts the audit log payload to an HTTP endpoint. Follow the steps within your GCP Cloudshell.
+Follow the below steps to capture Apigee Developer create event via EventArc and post it to GCP Workflow. In this example the Workflow posts the audit log payload to an HTTP endpoint. Follow the steps within your GCP Cloudshell.
 
 1. Initialize variables
     ```bash
