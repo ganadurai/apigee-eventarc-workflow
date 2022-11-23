@@ -77,7 +77,9 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
     --role "roles/logging.logWriter"
     ```
 
-1. Create Workflow yaml.
+1. Create Workflow yaml.<br/>
+   In the below code snitppet, replace "\<endpoint-to-post-data\>" with a valid url that can take in the event payload
+
     ```bash
     cat <<EOF > workflow.yaml
     main:
@@ -88,7 +90,7 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
             args:
                 body:
                     payload: \${input}
-                url: https://34.107.231.171.nip.io/apigee-hybrid-proxychain
+                url: <endpoint-to-post-data>
             result: httpOutput
         - returnOutput:
                 return: \${httpOutput.body}
