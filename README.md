@@ -105,7 +105,9 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
 
 1. Create Eventarc trigger that posts data to Workflow<br/>
    For the --location parameter, choose a region of your choice from this [list](https://cloud.google.com/eventarc/docs/locations).<br/>
-   For the --destination-workflow-location, refer to the region where the workflow is created.
+   For the --destination-workflow-location, refer to the region where the workflow is created.<br/>
+   Wait for few minutes for the enabling of APIs to take effect and then run the below command.
+   
     ```bash
     gcloud eventarc triggers create apigee-developer-create-workflows-trigger \
     --location=us-central1 \
