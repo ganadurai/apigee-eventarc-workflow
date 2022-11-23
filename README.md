@@ -4,10 +4,10 @@
 
 Actions on the Apigee management plane get recorded via audit logs to track events/changes that occur. Few to mention:
 
-Actions of API Proxies (Create, Update, Deploy, etc)
-Actions of API Products (Create, Update, Deploy, etc)
-Actions on Developer Apps
-and more.
+* Actions of API Proxies (Create, Update, Deploy, etc)
+* Actions of API Products (Create, Update, Deploy, etc)
+* Actions on Developer Apps
+* and more.
 
 For information about Apigee audit logs, see the details [here](https://cloud.google.com/apigee/docs/api-platform/debug/audit-logging#overview). 
 
