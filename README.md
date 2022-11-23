@@ -2,7 +2,7 @@
 
 ## Tracking and Processing Apigee Management Events 
 
-Actions on Apigee management plane get recorded via audit logs to track events/changes that occur. Few to mention:
+Actions on the Apigee management plane get recorded via audit logs to track events/changes that occur. Few to mention:
 
 Actions of API Proxies (Create, Update, Deploy, etc)
 Actions of API Products (Create, Update, Deploy, etc)
@@ -27,9 +27,9 @@ NOT protoPayload.methodName="google.cloud.apigee.v1.EnvironmentService.Unsubscri
 NOT protoPayload.methodName="google.cloud.apigee.v1.DeploymentService.GenerateDeployChangeReport"
 ```
 
-There is always a need to better capture the above events and process the events by posting it to a Cloud Function, Pub/Sub, Cloud Run or o an external http endpoint.
+There is always a need to better capture the above events and process the events by posting it to a Cloud Function, Pub/Sub, Cloud Run or to an external http endpoint.
 
-One of the ways to achieve the above is by utilizing [GCP EventArc](https://cloud.google.com/eventarc/docs/overview). An Eventarc trigger enables to capture specific events from cloudlogging audit logs and act on it.  
+One of the ways to achieve the above is by utilizing [GCP EventArc](https://cloud.google.com/eventarc/docs/overview). An Eventarc trigger enables to capturing specific events from Cloud Logging audit logs and acting on it.  
 
 ## Sample Implementation
 
@@ -60,7 +60,7 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
     gcloud projects add-iam-policy-binding ${PROJECT_NUMBER} --member=user:$USER_ID --role=roles/eventarc.admin
     ```
 
-1. Create Service Account and Assin the needed roles.
+1. Create Service Account and Assign the needed roles
     ```bash
     gcloud iam service-accounts create ${TRIGGER_SA}
 
@@ -77,8 +77,8 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
     --role "roles/logging.logWriter"
     ```
 
-1. Create Workflow yaml.<br/>
-   In the below code snitppet, replace "\<endpoint-to-post-data\>" with a valid url that can take in the event payload
+1. Create Workflow yaml<br/>
+   In the below code snippet, replace "\<endpoint-to-post-data\>" with a valid url that can take in the event payload
 
     ```bash
     cat <<EOF > workflow.yaml
@@ -120,7 +120,7 @@ Follow the below steps to capture Apigee Developer create event via EventArc and
 1. Validating the setup
   <ol type="a">
     <li>Create Developer via the Mgmt api or the console</li>
-    <li>Check <a href="https://console.cloud.google.com/logs/query;query=protoPayload.@type%3D%22type.googleapis.com%2Fgoogle.cloud.audit.AuditLog%22%0AprotoPayload.methodName%3D%22google.cloud.apigee.v1.Developers.CreateDeveloper%22%0AprotoPayload.serviceName%3D%22apigee.googleapis.com%22;">Cloud logging</a> for the presence of the audit log in your sorresponding GCP project.</li>
+    <li>Check <a href="https://console.cloud.google.com/logs/query;query=protoPayload.@type%3D%22type.googleapis.com%2Fgoogle.cloud.audit.AuditLog%22%0AprotoPayload.methodName%3D%22google.cloud.apigee.v1.Developers.CreateDeveloper%22%0AprotoPayload.serviceName%3D%22apigee.googleapis.com%22;">Cloud logging</a> for the presence of the audit log in your corresponding GCP project.</li>
     <li>Check <a href="https://console.cloud.google.com/eventarc/triggers/us-central1/apigee-developer-create-workflows-trigger">Eventarc</a> for the trigger invocations</li>
     <li>Check <a href="https://console.cloud.google.com/workflows/workflow/us-central1/developer-create-trigger-workflow/executions">Workflow</a> for the executions triggered via Eventarc.</li>
   </ol>
